@@ -6,13 +6,13 @@ from math import sin
 import pyrr
 from PIL import Image
 # from objData import objData
-from gltfIns import *
+from gltfReader import *
 
 
 
 
 gltfSrcfile: str = "assets/model/monkey.gltf"
-gltfdata = gltfIns(gltfSrcfile)
+gltfdata = gltfReader(gltfSrcfile)
 
 # Create vertex and color array
 
@@ -20,7 +20,7 @@ gltfdata = gltfIns(gltfSrcfile)
 
 # vertices = gltfdata.getAccessorData(0)
 # print(gltfdata.getAccessorData(0))
-bufViewType, bufViewData, compType2, accType = gltfdata.getAccessorData(0)
+bufViewType, bufViewData, compType2, cnt, accType = gltfdata.getAccessorData(0)
 # vertices = np.array(bufViewData, dtype = np.float32)
 vertices = np.frombuffer(buffer = bufViewData, dtype = np.float32).copy()
 # print( type(vertices) )
@@ -32,7 +32,7 @@ vertices = np.frombuffer(buffer = bufViewData, dtype = np.float32).copy()
 # print(indices)
 # indices = gltfdata.getAccessorData(1)
 # print(gltfdata.getAccessorData(1))
-bufViewType, bufViewData, compType2, accType = gltfdata.getAccessorData(1)
+bufViewType, bufViewData, compType2, cnt, accType = gltfdata.getAccessorData(1)
 indices = np.frombuffer(buffer = bufViewData, dtype = np.int16).tolist()
 indices = np.array(indices)
 
@@ -72,7 +72,7 @@ print(type(indices))
 # ]
 # indices = [0, 4, 6, 0, 6, 2, 3, 2, 6, 3, 6, 7, 7, 6, 4, 7, 4, 5, 5, 1, 3, 5, 3, 7, 1, 0, 2, 1, 2, 3, 5, 4, 0, 5, 0, 1]
 
-# Below vertices and indices taken from "gltfIns.py"
+# Below vertices and indices taken from "gltfReader.py"
 # vertices =[ 0.5, 0.5, -0.5,  0.5, -0.5, -0.5,
 #   0.5, 0.5,  0.5,  0.5, -0.5,  0.5,
 #  -0.5, 0.5, -0.5, -0.5, -0.5, -0.5,
@@ -81,7 +81,7 @@ print(type(indices))
 
 tmpvertices = vertices
 tmpindices = indices
-# Below vertices and indices taken from "gltfIns.py"
+# Below vertices and indices taken from "gltfReader.py"
 # vertices = [-1.0, 0.0, 1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, 1.0, 0.0, -1.0]
 # indices = [0,1,3,0,3,2]
 
