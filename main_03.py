@@ -16,69 +16,29 @@ gltfSrcfile: str = "assets/model/box.gltf"
 gltfdata = gltfReader(gltfSrcfile)
 
 
-vertices =  gltfdata.getMeshPosition(1,0)
-indices = gltfdata.getMeshIndices(1,0)
+_meshIndex = 0
+_primitiveIndex = 0
+
+position =  gltfdata.getMeshPosition(_meshIndex,_primitiveIndex)
+normal =  gltfdata.getMeshNormal(_meshIndex,_primitiveIndex)
+tex0 =  gltfdata.getMeshTex0(_meshIndex,_primitiveIndex)
+indices = gltfdata.getMeshIndices(_meshIndex,_primitiveIndex)
+
+vertices1 = np.append(position, normal)
+vertices = np.append(vertices1, tex0)
+
 
 
 print(vertices)
 print(type(vertices))
 print(indices)
 print(type(indices))
-
-
-# vertices = [0.5,  0.5, -0.5,
-#  0.5, -0.5, -0.5,
-#  0.5,  0.5,  0.5,
-#  0.5, -0.5,  0.5,
-# -0.5,  0.5, -0.5,
-# -0.5, -0.5, -0.5,
-# -0.5,  0.5,  0.5,
-# -0.5, -0.5,  0.5]
-# indices =[5, 3, 1,
-# 3, 8, 4,
-# 8, 5, 6,
-# 2, 8, 6,
-# 2, 3, 4,
-# 5, 2, 6,
-# 5, 7, 3,
-# 3, 7, 8,
-# 8, 7, 5,
-# 2, 4, 8,
-# 2, 1, 3,
-# 5, 1, 2]
-
-# Below vertices and indices taken from "import_json_gltf.py"
-# vertices = [ 
-#   0.5, 0.5, -0.5,  0.5, -0.5, -0.5,
-#   0.5, 0.5,  0.5,  0.5, -0.5,  0.5,
-#  -0.5, 0.5, -0.5, -0.5, -0.5, -0.5,
-#  -0.5, 0.5,  0.5, -0.5, -0.5,  0.5
-# ]
-# indices = [0, 4, 6, 0, 6, 2, 3, 2, 6, 3, 6, 7, 7, 6, 4, 7, 4, 5, 5, 1, 3, 5, 3, 7, 1, 0, 2, 1, 2, 3, 5, 4, 0, 5, 0, 1]
-
-# Below vertices and indices taken from "gltfReader.py"
-# vertices =[ 0.5, 0.5, -0.5,  0.5, -0.5, -0.5,
-#   0.5, 0.5,  0.5,  0.5, -0.5,  0.5,
-#  -0.5, 0.5, -0.5, -0.5, -0.5, -0.5,
-#  -0.5, 0.5,  0.5, -0.5, -0.5,  0.5]
-# indices = [0,4,6,0,6,2,3,2,6,3,6,7,7,6,4,7,4,5,5,1,3,5,3,7,1,0,2,1,2,3,5,4,0,5,0,1]
-
-tmpvertices = vertices
-tmpindices = indices
-# Below vertices and indices taken from "gltfReader.py"
-# vertices = [-1.0, 0.0, 1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, 1.0, 0.0, -1.0]
-# indices = [0,1,3,0,3,2]
-
-print( np.array_equal(tmpvertices, np.array(vertices)) )
-print( np.array_equal(tmpindices, np.array(indices)) )
-
-print( (tmpvertices == vertices).all() )
-print( (tmpindices == indices).all() )
-
-
+print(indices)
+print(type(indices))
+print(indices)
+print(type(indices))
 
 global proj_mat
-
 
 
 
@@ -205,11 +165,11 @@ if type(vertices) == np.ndarray:
 else:
     glBufferData(GL_ARRAY_BUFFER, np.array(vertices).nbytes, np.array(vertices), GL_STATIC_DRAW)
 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 12, ctypes.c_void_p(0))
-# glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 32, ctypes.c_void_p(12))
-# glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 32, ctypes.c_void_p(24))
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 12, ctypes.c_void_p(position.nbytes))
+glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8, ctypes.c_void_p(position.nbytes + normal.nbytes))
 glEnableVertexAttribArray(0)
-# glEnableVertexAttribArray(1)
-# glEnableVertexAttribArray(2)
+glEnableVertexAttribArray(1)
+glEnableVertexAttribArray(2)
 
 EDO = glGenBuffers(1)
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EDO)

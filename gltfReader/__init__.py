@@ -188,6 +188,22 @@ class gltfReader:
 
         return vertices
 
+    def getMeshNormal(self, mesh_index: int, primitive_index: int):
+        _i = self.data["meshes"][mesh_index]["primitives"][primitive_index]["attributes"]["NORMAL"]
+        _target, _bufViewData, _componentType, _count, _type, _, _ = self.getAccessorbyIndex(_i)
+
+        vertices = np.frombuffer(buffer = _bufViewData, dtype = np.float32).copy()
+
+        return vertices    
+
+    def getMeshTex0(self, mesh_index: int, primitive_index: int):
+        _i = self.data["meshes"][mesh_index]["primitives"][primitive_index]["attributes"]["TEXCOORD_0"]
+        _target, _bufViewData, _componentType, _count, _type, _, _ = self.getAccessorbyIndex(_i)
+
+        vertices = np.frombuffer(buffer = _bufViewData, dtype = np.float32).copy()
+
+        return vertices    
+
 
 
     def getMeshData(self, mesh_index: int, primitive_index: int):
