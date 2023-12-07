@@ -1,0 +1,1 @@
+pip install glfw pyopengl numpy pyrr pillow

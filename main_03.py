@@ -12,29 +12,12 @@ from gltfReader import *
 
 
 gltfSrcfile: str = "assets/model/monkey.gltf"
+gltfSrcfile: str = "assets/model/box.gltf"
 gltfdata = gltfReader(gltfSrcfile)
 
-# Create vertex and color array
 
-# print( type(vertices) )
-
-# vertices = gltfdata.getAccessorData(0)
-# print(gltfdata.getAccessorData(0))
-bufViewType, bufViewData, compType2, cnt, accType = gltfdata.getAccessorData(0)
-# vertices = np.array(bufViewData, dtype = np.float32)
-vertices = np.frombuffer(buffer = bufViewData, dtype = np.float32).copy()
-# print( type(vertices) )
-
-# Create new array for holding indices
-
-
-# print( type(indices) )
-# print(indices)
-# indices = gltfdata.getAccessorData(1)
-# print(gltfdata.getAccessorData(1))
-bufViewType, bufViewData, compType2, cnt, accType = gltfdata.getAccessorData(1)
-indices = np.frombuffer(buffer = bufViewData, dtype = np.int16).tolist()
-indices = np.array(indices)
+vertices =  gltfdata.getMeshPosition(1,0)
+indices = gltfdata.getMeshIndices(1,0)
 
 
 print(vertices)

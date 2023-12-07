@@ -1,0 +1,52 @@
+    def getMeshData(self, index: int, primitive: int, attrib: str):
+    # def getMeshData(self, index: int, primitive: int):
+        attribList = ["POSITION","NORMAL","TEXCOORD_0","TANGENT"]
+        # _meshes: List[Mesh] = []
+        vPos = None
+        vNor = None
+        vTan = None
+        vTex = None
+        # _tmpMesh = Mesh()
+        # _tmpMesh.name
+
+        # _meshes.append(self.data["meshes"])
+
+        # if attrib in attribList:
+        #     _position = self.data["meshes"][index]["primitives"][primitive]["attributes"]["POSITION"]
+        # _indices = self.data["meshes"][index]["primitives"][primitive]["indices"]
+        # # _mode = self.data["meshes"][index]["primitives"][primitive]["mode"]
+        #     # _target1, _bufViewData1, _componentType1, _count1, _type1, _, _ = self.getAccessorbyIndex(_position)
+        #     # _target2, _bufViewData2, _componentType2, _count2, _type2, _, _ = self.getAccessorbyIndex(_indices)
+
+        tmpVert = []
+
+        for k, v in enumerate(self.data["meshes"][index]["primitives"][primitive]["attributes"]):
+            print(k , v)
+            if v == "POSITION":
+                vPos = self.data["meshes"][index]["primitives"][primitive]["attributes"][v]
+            elif v == "NORMAL":
+                vNor = self.data["meshes"][index]["primitives"][primitive]["attributes"][v]
+            elif v == "TANGENT":
+                vTan = self.data["meshes"][index]["primitives"][primitive]["attributes"][v]
+            elif v == "TEXCOORD_0":
+                vTex = self.data["meshes"][index]["primitives"][primitive]["attributes"][v]
+            # tmpVert.append(self.data["meshes"][index]["primitives"][primitive]["attributes"][v])
+        
+        tmpVert
+
+        print(tmpVert)
+        for i in tmpVert:
+            print(self.getAccessorData(i))
+        print(self.getAccessorData(self.data["meshes"][index]["primitives"][primitive]["indices"]))
+        #     _position = self.data["meshes"][index]["primitives"][primitive]["attributes"]["POSITION"]
+        # _mode = self.data["meshes"][index]["primitives"][primitive]["mode"]
+            # _target1, _bufViewData1, _componentType1, _count1, _type1, _, _ = self.getAccessorbyIndex(_position)
+            # _target2, _bufViewData2, _componentType2, _count2, _type2, _, _ = self.getAccessorbyIndex(_indices)
+
+        _indices = self.data["meshes"][index]["primitives"][primitive]["indices"]
+
+        # return _position, _indices
+        return _indices
+
+    # print( getAccessorData(2) )
+    # print( getAccessorData(3) )
